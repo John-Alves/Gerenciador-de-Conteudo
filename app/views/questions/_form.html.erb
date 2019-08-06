@@ -1,0 +1,135 @@
+<style>
+  .answer-table{
+    width: 100%;
+    border-radius: 5pt;
+    border: 1pt solid #ccc;
+  }
+  .answer-table td {
+    padding: 0.8rem !important;
+  }
+</style>
+<%= form_with(model: question, local: true) do |form| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+        <% question.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group row">
+    <%= form.label :subject_id, 'Assunto', class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10">
+      <%= form.select :subject_id, Subject.all.collect { |s| [s.title, s.id] },
+                      { include_blank: true }, { class: 'form-control', required:'required' } %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :question_type_id, 'Tipo', class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10">
+      <%= form.select :question_type_id, QuestionType.all.collect { |q| [q.title, q.id] },
+                      { include_blank: true }, { class: 'form-control', required:'required' } %>
+    </div>
+  </div>
+
+  <table class="answer-table">
+    <tr id="statement">
+      <td>
+        <%= form.label :enunciado, 'Enunciado' %>
+        <%= form.text_area :enunciado, class: 'form-control', required: "required" %>
+      </td>
+    </tr>
+    <tr>
+      <td class="text-center">
+        <h6>Alternativas</h6>
+
+        <table id="answers" width="100%">
+
+        </table>
+      </td>
+    </tr>
+  </table>
+  <br>
+  <div class="actions text-center">
+    <%= form.submit 'Salvar', class: 'btn btn-primary align' %>
+  </div>
+<% end %>
+
+<%= content_for :jquery_scripts do %>
+  <script type="text/javascript" charset="utf-8">
+    function multiplaEscolha (){
+      var html = '';
+      for (var i = 0; i < 4; i++) {
+        html += `
+          <tr>
+            <td width="75%">
+              <input style="width: 100%" type="text" required="required"
+                     name="question[alternative${i}]" id="question_alternative${i}">
+            </td>
+            <td>
+              <input type="checkbox" value="true" name="question[alternative${i}_is_answer]"
+                     id="question_alternative${i}_is_answer_true">
+              <label for="question_alternative${i}_is_answer_true">Correta</label>
+            </td>
+          </tr>
+        `;
+      }
+      appendAlternatives(html);
+    }
+
+    function multiplaEscolhaComImagem (){
+    }
+
+    function verdadeiroFalso (){
+      var html = `
+        <tr>
+          <td width="75%">
+            Verdadeiro
+          </td>
+          <td>
+            <input type="checkbox" value="true" name="question[alternative0_is_answer]"
+                   id="question_alternative0_is_answer_true">
+            <label for="question_alternative0_is_answer_true">Correta</label>
+          </td>
+        </tr>
+        <tr>
+          <td width="75%">
+            Falso
+          </td>
+          <td>
+            <input type="checkbox" value="true" name="question[alternative1_is_answer]"
+                   id="question_alternative1_is_answer_true">
+            <label for="question_alternative1_is_answer_true">Correta</label>
+          </td>
+        </tr>
+      `;
+      appendAlternatives(html);
+    }
+
+    function appendAlternatives(html){
+      $("table#answers tr").remove();
+      $("table#answers").append(html);
+    }
+
+    $("#question_question_type_id").change(function () {
+        var type = $("#question_question_type_id").val();
+
+        if (type == 1){
+          multiplaEscolha();
+        }
+        else if (type == 2){
+          alert("Ainda não está disponivel.")
+        }
+        else if (type == 3){
+          verdadeiroFalso();
+        }
+    });
+
+    $("#question_question_type_id").val('');
+  </script>
+<% end %>

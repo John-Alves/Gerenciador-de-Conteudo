@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject: one
+  question_type: one
+  data_json: MyString
+
+two:
+  subject: two
+  question_type: two
+  data_json: MyString

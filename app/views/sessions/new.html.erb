@@ -1,0 +1,30 @@
+<% content_for :head do %>
+  <style>
+    .card {
+      width: 25rem;
+      margin: auto;
+      margin-top: 8rem;
+    }
+
+  </style>
+<% end %>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Acessar o sistema</h5>
+    <%= form_for :session, url: sign_in_path do |f| %>
+      <div class="form-group">
+        <%= f.label :login, 'Usuário' %><br />
+        <%= f.text_field :login, class: 'form-control', autofocus: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, 'Senha' %><br />
+        <%= f.password_field :password, class: 'form-control', autocomplete: "off" %>
+      </div>
+      <div class="actions text-center">
+        <%= f.submit "Log in", class: 'btn btn-primary align' %>
+      </div>
+    <% end %>
+  </div>
+</div>

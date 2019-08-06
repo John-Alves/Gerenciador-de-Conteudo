@@ -1,0 +1,34 @@
+<style>
+  .white{
+    color: white !important;
+    font-weight: bold;
+  }
+  .nav-item{
+    font-weight: bold;
+    color: #000;
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light" style="border-bottom: 1pt solid #ccc;">
+  <a class="navbar-brand" href="#">Gerenciador de Conteudo</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to "Questoes", questions_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Tipos de Questoes", question_types_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Assuntos", subjects_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Log out", sign_out_path, class: 'nav-link btn btn-danger white', method: "delete" %>
+      </li>
+    </ul>
+  </div>
+</nav>
