@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
-  database: gerenciadorConteudo_production
-  username: gerenciadorConteudo
-  password: <%= ENV['GERENCIADORCONTEUDO_DATABASE_PASSWORD'] %>
+  database: d37m1mc74eqihb
+  username: cvjpgrrprqesye
+  password: 42fbb53a8375b333d236a131de4cd686f9d928a175555cf468cd2022976a030c
+  host: ec2-107-21-120-104.compute-1.amazonaws.com
+  port: 5432
